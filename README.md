@@ -1,10 +1,38 @@
-# bomb-dashboard-Vishal_Thakur
+# 🪦Welcome to the Bomb.money ecosystem🪦
 
-# Project Desciption
+Thanks for taking the time to contribute!
+You can start by reading our [Contribution guidelines](CONTRIBUTING.md) first.
 
- This project is about creating an investment dashboard for bomb.money, a DeFi product that allows users to earn rewards by staking tokens.The dashboard will be a new page added to the existing frontend of the site, which will display relevant information such as price, supply, returns and functions related to the user's investment. The project will require frontend development skills, web3 integration skills, and adaptability to learn from the original codebase. 
- 
-The dashboard UI design is provided in Figma, and the codebase is available for download. The main tasks are to build the dashboard on a new route, fetch and show accurate data from the original codebase, and call and execute the same functions as in the original codebase when users interact with the dashboard buttons.
+## Setup
 
-The project will also use Metamask as a browser extension to connect with the Ethereum network.
+Install the dependencies
 
+```shell
+yarn
+yarn start
+```
+
+Make sure you've configured your IDE with `prettier`.
+
+You can reformat the project by running
+
+```shell
+npx prettier --write .
+```
+
+## Project structure
+
+- **components** contains generic components used inside the application.
+- **views** contains building blocks for each page. The entry point of a view is used as the root component of each route.
+- **config** contains all the config files and ABIs.
+- **state** contains the redux files for the global state of the app.
+- **contexts** contains global contexts.
+- **hooks** contains generic hooks.
+- **utils** contains generic utilities functions.
+
+## Useful Resources
+
+- [Our project documentation](https://docs.bomb.money/) will help you understand before start contributing
+- Join our [Discord](https://discord.bomb.money) community
+- Or if you are more of a [Telegram Zombie](https://t.me/bombmoneybsc) we have that too
+- Bugs? Use the [Issues](https://github.com/bombmoney/bomb-frontend/issues) section of our github to report them
