@@ -4,7 +4,6 @@ import { Helmet } from 'react-helmet';
 import { createGlobalStyle } from 'styled-components';
 import Page from '../../components/Page';
 import { makeStyles } from '@material-ui/core/styles';
-
 import HomeImage from '../../assets/img/background.jpg';
 import { Box, Card, CardContent, Button, Typography, Grid } from '@material-ui/core';
 import ProgressCountdown from '../Boardroom/components/ProgressCountdown';
@@ -53,6 +52,9 @@ const Dashboard = () => {
 
       <Box mt={5} style={{ minHeight: '100vh' }}>
         <Grid container justify="center" direction="column" alignItems="center">
+
+          {/* CARD 1 */}
+
           <Card
             style={{
               width: '80%',
@@ -214,7 +216,8 @@ const Dashboard = () => {
                   </Table>
                 </TableContainer>
               </Box>
-              <Box style={{marginRight: '5%'}}>
+
+              <Box style={{ marginRight: '5%' }}>
                 <Typography style={{ fontSize: '18px' }}>Current Epoch</Typography>
                 <Typography style={{ fontSize: '35px' }}>258</Typography>
                 <hr></hr>
@@ -234,8 +237,11 @@ const Dashboard = () => {
             </CardContent>
           </Card>
 
+          {/* CARD 2 */}
           <Card style={{ width: '80%', marginBottom: '20px', backgroundColor: 'transparent', height: '450px' }}>
             <CardContent align="center" style={{ display: 'flex' }}>
+
+              {/* BOX LEFT */}
               <Box style={{ width: `calc(75% - 20px)`, backgroundColor: 'transparent' }}>
                 <div>
                   <Box
@@ -485,13 +491,13 @@ const Dashboard = () => {
                             src={iconArrowDownCir}
                           />
                         </div>
-                        
                       </div>
                     </div>
                   </Box>
                 </div>
               </Box>
 
+              {/* BOX RIGHT */}
               <Box style={{ width: '25%', marginLeft: '25px', backgroundColor: '#20254380', borderRadius: '10px' }}>
                 <div>
                   <p style={{ fontSize: '22px' }}>Latest News</p>
@@ -500,6 +506,7 @@ const Dashboard = () => {
             </CardContent>
           </Card>
 
+          {/* CARD 3 */}
           <Card style={{ width: '80%', height: '600px', marginBottom: '20px', backgroundColor: '#20254380' }}>
             <CardContent align="center" style={{ display: 'flex' }}>
               <Box style={{ width: '100%', backgroundColor: 'transparent' }}>
@@ -522,47 +529,47 @@ const Dashboard = () => {
                         <p style={{ fontSize: '12px', padding: '18px' }}>Recommended</p>
                       </div>
                       <div
-                            style={{
-                              width: '106px',
-                              height: '28px',
-                              border: '1px solid white',
-                              borderRadius: '50px',
-                              display: 'flex',
-                              justifyContent: 'center',
-                              alignItems: 'center',
-                              padding: '4px 10px 4px 15px',
-                              marginTop: '20px',
-                              marginLeft: 'auto',
-                            }}
-                          >
-                            <span
-                              style={{
-                                color: 'rgba(255, 255, 255, 1)',
-                                height: 'auto',
-                                textAlign: 'left',
-                                lineHeight: 'normal',
-                                marginRight: '19px',
-                                marginBottom: '0',
-                                alignSelf: 'auto',
-                                fontFamily: 'Nunito',
-                                fontSize: 15,
-                                fontStretch: 'normal',
-                                fontStyle: 'Regular',
-                                fontWeight: 400,
-                                textDecoration: 'none',
-                              }}
-                            >
-                              <span>Claim all</span>
-                            </span>
-                            <img
-                              style={{
-                                width: '21px',
-                                height: '21px',
-                                position: 'relative',
-                              }}
-                              src={iconArrowDownCir}
-                            />
-                          </div>
+                        style={{
+                          width: '106px',
+                          height: '28px',
+                          border: '1px solid white',
+                          borderRadius: '50px',
+                          display: 'flex',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          padding: '4px 10px 4px 15px',
+                          marginTop: '20px',
+                          marginLeft: 'auto',
+                        }}
+                      >
+                        <span
+                          style={{
+                            color: 'rgba(255, 255, 255, 1)',
+                            height: 'auto',
+                            textAlign: 'left',
+                            lineHeight: 'normal',
+                            marginRight: '19px',
+                            marginBottom: '0',
+                            alignSelf: 'auto',
+                            fontFamily: 'Nunito',
+                            fontSize: 15,
+                            fontStretch: 'normal',
+                            fontStyle: 'Regular',
+                            fontWeight: 400,
+                            textDecoration: 'none',
+                          }}
+                        >
+                          <span>Claim all</span>
+                        </span>
+                        <img
+                          style={{
+                            width: '21px',
+                            height: '21px',
+                            position: 'relative',
+                          }}
+                          src={iconArrowDownCir}
+                        />
+                      </div>
                     </div>
                     <div>
                       <div style={{ display: 'flex' }}>
@@ -642,7 +649,7 @@ const Dashboard = () => {
 
                         <div style={{ width: '35%', marginTop: '5%' }}>
                           <div style={{ display: 'flex', justifyContent: 'center' }}>
-                          <div
+                            <div
                               style={{
                                 width: '106px',
                                 height: '28px',
@@ -969,7 +976,6 @@ const Dashboard = () => {
                                 src={iconArrowDownCir}
                               />
                             </div>
-                            
                           </div>
                         </div>
                       </div>
@@ -980,6 +986,7 @@ const Dashboard = () => {
             </CardContent>
           </Card>
 
+          {/* CARD 4 */}
           <Card style={{ width: '80%', marginBottom: '20px', backgroundColor: '#20254380' }}>
             <CardContent align="left">
               <div style={{ display: 'flex' }}>
