@@ -13,6 +13,7 @@ The project will also use Metamask as a browser extension to connect with the Et
 Install the dependencies
 
 ```shell
+yarn install
 yarn
 yarn start
 ```
@@ -24,3 +25,17 @@ You can reformat the project by running
 ```shell
 npx prettier --write .
 ```
+
+Possible Error:
+- SSL error caused by latest Node version possibly
+- In package.json replace
+ ```
+ "start": "react-scripts start",
+    "build": "react-scripts build",
+ ```
+ with
+ 
+ ```
+ "start": "react-scripts --openssl-legacy-provider start",
+    "build": "react-scripts --openssl-legacy-provider build",
+  ```  
