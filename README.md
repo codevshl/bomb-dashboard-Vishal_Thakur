@@ -7,3 +7,35 @@
 The dashboard UI design is provided in Figma, and the codebase is available for download. The main tasks are to build the dashboard on a new route, fetch and show accurate data from the original codebase, and call and execute the same functions as in the original codebase when users interact with the dashboard buttons.
 
 The project will also use Metamask as a browser extension to connect with the Ethereum network.
+
+## Setup
+
+Install the dependencies
+
+```shell
+yarn install
+yarn
+yarn start
+```
+
+Make sure you've configured your IDE with `prettier`.
+
+You can reformat the project by running
+
+```shell
+npx prettier --write .
+```
+
+Possible Error:
+- SSL error caused by latest Node version possibly
+- In package.json replace
+ ```
+ "start": "react-scripts start",
+    "build": "react-scripts build",
+ ```
+ with
+ 
+ ```
+ "start": "react-scripts --openssl-legacy-provider start",
+    "build": "react-scripts --openssl-legacy-provider build",
+  ```  
