@@ -26,12 +26,12 @@ import iconArrowDownCir from '../../assets/img/iconArrowDownCir.svg';
 
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
-}
+} ``
 
 const rows = [
-  createData({ name: 'Frozen yoghurt', icon: '' }, 159, 6.0, 24, 4.0),
-  createData({ name: 'Frozen yoghurt', icon: '' }, 237, 9.0, 37, 4.3),
-  createData({ name: 'Frozen yoghurt', icon: '' }, 262, 16.0, 24, 6.0),
+  createData({ name: '$BOMB', icon: '' }, '8.66M', '60.9k', '0.24', 4.0),
+  createData({ name: '$BSHARE', icon: '' }, '11.43K', '8.49m', '$300', 4.3),
+  createData({ name: '$BBOND', icon: '' }, '20.00K', '175k', '$0.28', 6.0),
 ];
 
 const Dashboard = () => {
@@ -254,7 +254,7 @@ const Dashboard = () => {
                       alignItems: 'center',
                     }}
                   >
-                    <p style={{ verticalAlign: 'center', fontSize: '24px' }}>Invest Now</p>
+                    <p style={{ verticalAlign: 'center', fontSize: '24px', fontWeight: '800' }}>Invest Now</p>
                   </Box>
 
                   <Box style={{ display: 'flex' }}>
@@ -362,37 +362,26 @@ const Dashboard = () => {
                         <p>~$298.88</p>
                       </div>
 
-                      <div style={{ width: '35%' }}>
-                        <div style={{ display: 'flex', justifyContent: 'center' }}>
+                      <div style={{ width: '35%', marginRight: '20px' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-around' }}>
                           <div
                             style={{
-                              width: '106px',
-                              height: '28px',
+                              width: '70%',
+                              height: '18px',
                               border: '1px solid white',
                               borderRadius: '50px',
                               display: 'flex',
                               justifyContent: 'center',
                               alignItems: 'center',
                               padding: '4px 10px 4px 15px',
-                              marginTop: '20px',
-                              marginLeft: '20px',
+                              marginTop: '20px'
                             }}
                           >
                             <span
                               style={{
                                 color: 'rgba(255, 255, 255, 1)',
                                 height: 'auto',
-                                textAlign: 'left',
-                                lineHeight: 'normal',
-                                marginRight: '19px',
-                                marginBottom: '0',
-                                alignSelf: 'auto',
-                                fontFamily: 'Nunito',
-                                fontSize: 15,
-                                fontStretch: 'normal',
-                                fontStyle: 'Regular',
-                                fontWeight: 400,
-                                textDecoration: 'none',
+                                fontSize: 15
                               }}
                             >
                               <span>Deposit</span>
@@ -408,8 +397,8 @@ const Dashboard = () => {
                           </div>
                           <div
                             style={{
-                              width: '106px',
-                              height: '28px',
+                              width: '50%',
+                              height: '18px',
                               border: '1px solid white',
                               borderRadius: '50px',
                               display: 'flex',
@@ -425,16 +414,7 @@ const Dashboard = () => {
                                 color: 'rgba(255, 255, 255, 1)',
                                 height: 'auto',
                                 textAlign: 'left',
-                                lineHeight: 'normal',
-                                marginRight: '19px',
-                                marginBottom: '0',
-                                alignSelf: 'auto',
-                                fontFamily: 'Nunito',
-                                fontSize: 15,
-                                fontStretch: 'normal',
-                                fontStyle: 'Regular',
-                                fontWeight: 400,
-                                textDecoration: 'none',
+                                fontSize: 15
                               }}
                             >
                               <span>Withdraw</span>
@@ -451,16 +431,15 @@ const Dashboard = () => {
                         </div>
                         <div
                           style={{
-                            width: '106px',
-                            height: '28px',
+                            width: '70%',
+                            height: '23px',
                             border: '1px solid white',
                             borderRadius: '50px',
                             display: 'flex',
                             justifyContent: 'center',
                             alignItems: 'center',
                             padding: '4px 10px 4px 15px',
-                            marginTop: '20px',
-                            marginLeft: '20px',
+                            marginTop: '10px',
                           }}
                         >
                           <span
@@ -468,16 +447,7 @@ const Dashboard = () => {
                               color: 'rgba(255, 255, 255, 1)',
                               height: 'auto',
                               textAlign: 'left',
-                              lineHeight: 'normal',
-                              marginRight: '19px',
-                              marginBottom: '0',
-                              alignSelf: 'auto',
-                              fontFamily: 'Nunito',
-                              fontSize: 15,
-                              fontStretch: 'normal',
-                              fontStyle: 'Regular',
-                              fontWeight: 400,
-                              textDecoration: 'none',
+                              fontSize: 15
                             }}
                           >
                             <span>Claim Rewards</span>
@@ -486,7 +456,7 @@ const Dashboard = () => {
                             style={{
                               width: '21px',
                               height: '21px',
-                              position: 'relative',
+                              marginLeft: '5px'
                             }}
                             src={iconArrowDownCir}
                           />
@@ -529,46 +499,37 @@ const Dashboard = () => {
                         <p style={{ fontSize: '12px', padding: '18px' }}>Recommended</p>
                       </div>
                       <div
-                        style={{
-                          width: '106px',
-                          height: '28px',
-                          border: '1px solid white',
-                          borderRadius: '50px',
-                          display: 'flex',
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                          padding: '4px 10px 4px 15px',
-                          marginTop: '20px',
-                          marginLeft: 'auto',
-                        }}
-                      >
-                        <span
-                          style={{
-                            color: 'rgba(255, 255, 255, 1)',
-                            height: 'auto',
-                            textAlign: 'left',
-                            lineHeight: 'normal',
-                            marginRight: '19px',
-                            marginBottom: '0',
-                            alignSelf: 'auto',
-                            fontFamily: 'Nunito',
-                            fontSize: 15,
-                            fontStretch: 'normal',
-                            fontStyle: 'Regular',
-                            fontWeight: 400,
-                            textDecoration: 'none',
-                          }}
-                        >
-                          <span>Claim all</span>
-                        </span>
-                        <img
-                          style={{
-                            width: '21px',
-                            height: '21px',
-                            position: 'relative',
-                          }}
-                          src={iconArrowDownCir}
-                        />
+                            style={{
+                              width: '12%',
+                              height: '18px',
+                              border: '1px solid white',
+                              borderRadius: '50px',
+                              display: 'flex',
+                              justifyContent: 'center',
+                              alignItems: 'center',
+                              padding: '4px 10px 4px 15px',
+                              marginTop: '20px',
+                              marginLeft: 'auto'
+
+                            }}
+                          >
+                            <span
+                              style={{
+                                color: 'rgba(255, 255, 255, 1)',
+                                height: 'auto',
+                                fontSize: 15
+                              }}
+                            >
+                              <span>Claim all</span>
+                            </span>
+                            <img
+                              style={{
+                                width: '21px',
+                                height: '21px',
+                                position: 'relative',
+                              }}
+                              src={iconArrowDownCir}
+                            />
                       </div>
                     </div>
                     <div>
@@ -649,132 +610,105 @@ const Dashboard = () => {
 
                         <div style={{ width: '35%', marginTop: '5%' }}>
                           <div style={{ display: 'flex', justifyContent: 'center' }}>
-                            <div
+                          <div
+                            style={{
+                              width: '20%',
+                              height: '18px',
+                              border: '1px solid white',
+                              borderRadius: '50px',
+                              display: 'flex',
+                              justifyContent: 'center',
+                              alignItems: 'center',
+                              padding: '4px 10px 4px 15px',
+                              marginTop: '20px',
+                              marginLeft: 'auto'
+
+                            }}
+                          >
+                            <span
                               style={{
-                                width: '106px',
-                                height: '28px',
-                                border: '1px solid white',
-                                borderRadius: '50px',
-                                display: 'flex',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                padding: '4px 10px 4px 15px',
-                                marginTop: '20px',
-                                marginLeft: '20px',
+                                color: 'rgba(255, 255, 255, 1)',
+                                height: 'auto',
+                                fontSize: 15
                               }}
                             >
-                              <span
-                                style={{
-                                  color: 'rgba(255, 255, 255, 1)',
-                                  height: 'auto',
-                                  textAlign: 'left',
-                                  lineHeight: 'normal',
-                                  marginRight: '19px',
-                                  marginBottom: '0',
-                                  alignSelf: 'auto',
-                                  fontFamily: 'Nunito',
-                                  fontSize: 15,
-                                  fontStretch: 'normal',
-                                  fontStyle: 'Regular',
-                                  fontWeight: 400,
-                                  textDecoration: 'none',
-                                }}
-                              >
-                                <span>Deposit</span>
-                              </span>
-                              <img
-                                style={{
-                                  width: '21px',
-                                  height: '21px',
-                                  position: 'relative',
-                                }}
-                                src={iconArrowDownCir}
-                              />
-                            </div>
-                            <div
+                              <span>Deposit</span>
+                            </span>
+                            <img
                               style={{
-                                width: '106px',
-                                height: '28px',
-                                border: '1px solid white',
-                                borderRadius: '50px',
-                                display: 'flex',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                padding: '4px 10px 4px 15px',
-                                marginTop: '20px',
-                                marginLeft: '20px',
+                                width: '21px',
+                                height: '21px',
+                                position: 'relative',
+                              }}
+                              src={iconArrowDownCir}
+                            />
+                         </div>
+                         <div
+                            style={{
+                              width: '20%',
+                              height: '18px',
+                              border: '1px solid white',
+                              borderRadius: '50px',
+                              display: 'flex',
+                              justifyContent: 'center',
+                              alignItems: 'center',
+                              padding: '4px 10px 4px 15px',
+                              marginTop: '20px',
+                              marginLeft: 'auto'
+
+                            }}
+                          >
+                            <span
+                              style={{
+                                color: 'rgba(255, 255, 255, 1)',
+                                height: 'auto',
+                                fontSize: 15
                               }}
                             >
-                              <span
-                                style={{
-                                  color: 'rgba(255, 255, 255, 1)',
-                                  height: 'auto',
-                                  textAlign: 'left',
-                                  lineHeight: 'normal',
-                                  marginRight: '19px',
-                                  marginBottom: '0',
-                                  alignSelf: 'auto',
-                                  fontFamily: 'Nunito',
-                                  fontSize: 15,
-                                  fontStretch: 'normal',
-                                  fontStyle: 'Regular',
-                                  fontWeight: 400,
-                                  textDecoration: 'none',
-                                }}
-                              >
-                                <span>Withdraw</span>
-                              </span>
-                              <img
-                                style={{
-                                  width: '21px',
-                                  height: '21px',
-                                  position: 'relative',
-                                }}
-                                src={iconArrowDownCir}
-                              />
-                            </div>
-                            <div
+                              <span>Withdraw</span>
+                            </span>
+                            <img
                               style={{
-                                width: '106px',
-                                height: '28px',
-                                border: '1px solid white',
-                                borderRadius: '50px',
-                                display: 'flex',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                padding: '4px 10px 4px 15px',
-                                marginTop: '20px',
-                                marginLeft: '20px',
+                                width: '21px',
+                                height: '21px',
+                                position: 'relative',
+                              }}
+                              src={iconArrowDownCir}
+                            />
+                         </div>
+                         <div
+                            style={{
+                              width: '20%',
+                              height: '23px',
+                              border: '1px solid white',
+                              borderRadius: '50px',
+                              display: 'flex',
+                              justifyContent: 'center',
+                              alignItems: 'center',
+                              padding: '4px 10px 4px 15px',
+                              marginTop: '20px',
+                              marginLeft: 'auto'
+
+                            }}
+                          >
+                            <span
+                              style={{
+                                color: 'rgba(255, 255, 255, 1)',
+                                height: 'auto',
+                                fontSize: 15
                               }}
                             >
-                              <span
-                                style={{
-                                  color: 'rgba(255, 255, 255, 1)',
-                                  height: 'auto',
-                                  textAlign: 'left',
-                                  lineHeight: 'normal',
-                                  marginRight: '19px',
-                                  marginBottom: '0',
-                                  alignSelf: 'auto',
-                                  fontFamily: 'Nunito',
-                                  fontSize: 15,
-                                  fontStretch: 'normal',
-                                  fontStyle: 'Regular',
-                                  fontWeight: 400,
-                                  textDecoration: 'none',
-                                }}
-                              >
-                                <p>Claim Rewards</p>
-                              </span>
-                              <img
-                                style={{
-                                  width: '21px',
-                                  height: '21px',
-                                  position: 'relative',
-                                }}
-                                src={iconArrowDownCir}
-                              />
-                            </div>
+                              <span>Claim rewards</span>
+                            </span>
+                            <img
+                              style={{
+                                width: '21px',
+                                height: '21px',
+                                position: 'relative',
+                              }}
+                              src={iconArrowDownCir}
+                            />
+                      </div>
                           </div>
                         </div>
                       </div>
@@ -848,134 +782,107 @@ const Dashboard = () => {
                           <p>~$298.88</p>
                         </div>
 
-                        <div style={{ width: '35%', marginTop: '5%' }}>
+                        <div style={{ width: '35%', marginLeft: '20px'}}>
                           <div style={{ display: 'flex', justifyContent: 'center' }}>
-                            <div
+                          <div
+                            style={{
+                              width: '20%',
+                              height: '18px',
+                              border: '1px solid white',
+                              borderRadius: '50px',
+                              display: 'flex',
+                              justifyContent: 'center',
+                              alignItems: 'center',
+                              padding: '4px 10px 4px 15px',
+                              marginTop: '20px',
+                              marginLeft: 'auto'
+
+                            }}
+                          >
+                            <span
                               style={{
-                                width: '106px',
-                                height: '28px',
-                                border: '1px solid white',
-                                borderRadius: '50px',
-                                display: 'flex',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                padding: '4px 10px 4px 15px',
-                                marginTop: '20px',
-                                marginLeft: '20px',
+                                color: 'rgba(255, 255, 255, 1)',
+                                height: 'auto',
+                                fontSize: 15
                               }}
                             >
-                              <span
-                                style={{
-                                  color: 'rgba(255, 255, 255, 1)',
-                                  height: 'auto',
-                                  textAlign: 'left',
-                                  lineHeight: 'normal',
-                                  marginRight: '19px',
-                                  marginBottom: '0',
-                                  alignSelf: 'auto',
-                                  fontFamily: 'Nunito',
-                                  fontSize: 15,
-                                  fontStretch: 'normal',
-                                  fontStyle: 'Regular',
-                                  fontWeight: 400,
-                                  textDecoration: 'none',
-                                }}
-                              >
-                                <span>Deposit</span>
-                              </span>
-                              <img
-                                style={{
-                                  width: '21px',
-                                  height: '21px',
-                                  position: 'relative',
-                                }}
-                                src={iconArrowDownCir}
-                              />
-                            </div>
-                            <div
+                              <span>Deposit</span>
+                            </span>
+                            <img
                               style={{
-                                width: '106px',
-                                height: '28px',
-                                border: '1px solid white',
-                                borderRadius: '50px',
-                                display: 'flex',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                padding: '4px 10px 4px 15px',
-                                marginTop: '20px',
-                                marginLeft: '20px',
+                                width: '21px',
+                                height: '21px',
+                                position: 'relative',
+                              }}
+                              src={iconArrowDownCir}
+                            />
+                         </div>
+                         <div
+                            style={{
+                              width: '20%',
+                              height: '18px',
+                              border: '1px solid white',
+                              borderRadius: '50px',
+                              display: 'flex',
+                              justifyContent: 'center',
+                              alignItems: 'center',
+                              padding: '4px 10px 4px 15px',
+                              marginTop: '20px',
+                              marginLeft: 'auto'
+
+                            }}
+                          >
+                            <span
+                              style={{
+                                color: 'rgba(255, 255, 255, 1)',
+                                height: 'auto',
+                                fontSize: 15
                               }}
                             >
-                              <span
-                                style={{
-                                  color: 'rgba(255, 255, 255, 1)',
-                                  height: 'auto',
-                                  textAlign: 'left',
-                                  lineHeight: 'normal',
-                                  marginRight: '19px',
-                                  marginBottom: '0',
-                                  alignSelf: 'auto',
-                                  fontFamily: 'Nunito',
-                                  fontSize: 15,
-                                  fontStretch: 'normal',
-                                  fontStyle: 'Regular',
-                                  fontWeight: 400,
-                                  textDecoration: 'none',
-                                }}
-                              >
-                                <span>Withdraw</span>
-                              </span>
-                              <img
-                                style={{
-                                  width: '21px',
-                                  height: '21px',
-                                  position: 'relative',
-                                }}
-                                src={iconArrowDownCir}
-                              />
-                            </div>
-                            <div
+                              <span>Withdraw</span>
+                            </span>
+                            <img
                               style={{
-                                width: '106px',
-                                height: '28px',
-                                border: '1px solid white',
-                                borderRadius: '50px',
-                                display: 'flex',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                padding: '4px 10px 4px 15px',
-                                marginTop: '20px',
-                                marginLeft: '20px',
+                                width: '21px',
+                                height: '21px',
+                                position: 'relative',
+                              }}
+                              src={iconArrowDownCir}
+                            />
+                         </div>
+                         <div
+                            style={{
+                              width: '20%',
+                              height: '18px',
+                              border: '1px solid white',
+                              borderRadius: '50px',
+                              display: 'flex',
+                              justifyContent: 'center',
+                              alignItems: 'center',
+                              padding: '4px 10px 4px 15px',
+                              marginTop: '20px',
+                              marginLeft: 'auto'
+
+                            }}
+                          >
+                            <span
+                              style={{
+                                color: 'rgba(255, 255, 255, 1)',
+                                height: 'auto',
+                                fontSize: 15
                               }}
                             >
-                              <span
-                                style={{
-                                  color: 'rgba(255, 255, 255, 1)',
-                                  height: 'auto',
-                                  textAlign: 'left',
-                                  lineHeight: 'normal',
-                                  marginRight: '19px',
-                                  marginBottom: '0',
-                                  alignSelf: 'auto',
-                                  fontFamily: 'Nunito',
-                                  fontSize: 15,
-                                  fontStretch: 'normal',
-                                  fontStyle: 'Regular',
-                                  fontWeight: 400,
-                                  textDecoration: 'none',
-                                }}
-                              >
-                                <p>Claim Rewards</p>
-                              </span>
-                              <img
-                                style={{
-                                  width: '21px',
-                                  height: '21px',
-                                  position: 'relative',
-                                }}
-                                src={iconArrowDownCir}
-                              />
-                            </div>
+                              <span>Claim rewards</span>
+                            </span>
+                            <img
+                              style={{
+                                width: '21px',
+                                height: '21px',
+                                position: 'relative',
+                              }}
+                              src={iconArrowDownCir}
+                            />
+                      </div>
                           </div>
                         </div>
                       </div>
@@ -1013,33 +920,12 @@ const Dashboard = () => {
                   <p style={{ fontSize: '12px', padding: '18px' }}>Recommended</p>
                 </div>
               </div>
-              <div>
+              <div style={{marginRight: '10px'}}>
                 <div style={{ display: 'flex' }}>
                   <p style={{ fontSize: '14px', marginLeft: '20px' }}>
                     BBOND can be purchased only on contraction periods, when TWAP of BOMB is below 1
                   </p>
-                </div>
-              </div>
-              <div style={{ display: 'flex' }}>
-                <div style={{ width: '25%' }}>
-                  <p>Current Price: (Bomb)^2</p>
-                  <p>BBond = 6.2872 BTCB</p>
-                </div>
-
-                <div style={{ width: '20%' }}>
-                  <p>Avaialabe to redeem:</p>
-                  <p>
-                    <img
-                      style={{
-                        height: '18px',
-                        marginRight: '10px',
-                      }}
-                      src={bshares}
-                    />
-                    456
-                  </p>
-                </div>
-                <div style={{ width: '35%', marginLeft: 'auto' }}>
+                  <div style={{marginLeft: 'auto'}}>
                   <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <p>Purchase BBond</p>
                     <div
@@ -1086,6 +972,30 @@ const Dashboard = () => {
                     </div>
                   </div>
                   <hr></hr>
+                  </div>
+                </div>
+              </div>
+              <div style={{ display: 'flex', marginLeft: '20px', marginRight: '10pxs' }}>
+                <div style={{ width: '25%' }}>
+                  <p>Current Price: (Bomb)^2</p>
+                  <p>BBond = 6.2872 BTCB</p>
+                </div>
+
+                <div style={{ width: '20%' }}>
+                  <p>Avaialabe to redeem:</p>
+                  <p>
+                    <img
+                      style={{
+                        height: '18px',
+                        marginRight: '10px',
+                      }}
+                      src={bshares}
+                    />
+                    456
+                  </p>
+                </div>
+                <div style={{ marginLeft: 'auto', marginRight: '10px' }}>
+                  
                   <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <p>Redeem Bomb</p>
                     <div
