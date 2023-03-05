@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo} from 'react';
 
 import { Helmet } from 'react-helmet';
 import { createGlobalStyle } from 'styled-components';
@@ -23,16 +23,28 @@ import blurs from '../../assets/img/blurs.png';
 import bshareBnbLp from '../../assets/img/bshareBnbLp.png';
 import bombBitcoinLp from '../../assets/img/bombBitcoinLp.png';
 import iconArrowDownCir from '../../assets/img/iconArrowDownCir.svg';
+import useCurrentEpoch from '../../hooks/useCurrentEpoch';
+import useTreasuryAllocationTimes from '../../hooks/useTreasuryAllocationTimes';
+import useBondStats from '../../hooks/useBondStats';
+import useTotalValueLocked from '../../hooks/useTotalValueLocked';
+import CountUp from 'react-countup';
+import { getDisplayBalance } from '../../utils/formatBalance';
+import useTotalStakedOnBoardroom from '../../hooks/useTotalStakedOnBoardroom';
+import useTokenBalance from '../../hooks/useTokenBalance';
+import useBombFinance from '../../hooks/useBombFinance';
+import useCashPriceInLastTWAP from '../../hooks/useCashPriceInLastTWAP';
+import useStakedBalanceOnBoardroom from '../../hooks/useStakedBalanceOnBoardroom';
+import useBombStats from '../../hooks/useBombStats';
+import usebShareStats from '../../hooks/usebShareStats';
 
+
+  
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
-} ``
+} 
 
-const rows = [
-  createData({ name: '$BOMB', icon: '' }, '8.66M', '60.9k', '0.24', 4.0),
-  createData({ name: '$BSHARE', icon: '' }, '11.43K', '8.49m', '$300', 4.3),
-  createData({ name: '$BBOND', icon: '' }, '20.00K', '175k', '$0.28', 6.0),
-];
+
+
 
 const Dashboard = () => {
   const BackgroundImage = createGlobalStyle`
@@ -42,7 +54,42 @@ const Dashboard = () => {
     background-color: #171923;
   }`;
 
+  const currentEpoch = useCurrentEpoch();
   const TITLE = 'bomb.money | Bomb Finance Summary';
+  const bondStat = useBondStats();
+  const { to } = useTreasuryAllocationTimes();
+  const TVL = useTotalValueLocked();
+  const totalStaked = useTotalStakedOnBoardroom();
+  const bombFinance = useBombFinance();
+  const bondBalance = useTokenBalance(bombFinance?.BBOND);
+  const cashPrice = useCashPriceInLastTWAP();
+  const bondScale = (Number(cashPrice) / 100000000000000).toFixed(4); 
+  const stakedBalance = useStakedBalanceOnBoardroom();
+  const bombStats = useBombStats();
+  const bShareStats = usebShareStats();
+  const tBondStats = useBondStats();
+
+  const bombPriceInBNB = useMemo(() => (bombStats ? Number(bombStats.tokenInFtm).toFixed(4) : null), [bombStats]);
+  const bombCirculatingSupply = useMemo(() => (bombStats ? String(bombStats.circulatingSupply) : null), [bombStats]);
+  const bombTotalSupply = useMemo(() => (bombStats ? String(bombStats.totalSupply) : null), [bombStats]);
+
+  const bSharePriceInDollars = useMemo(() => (bShareStats ? Number(bShareStats.priceInDollars).toFixed(2) : null),[bShareStats],);
+  const bSharePriceInBNB = useMemo(() => (bShareStats ? Number(bShareStats.tokenInFtm).toFixed(4) : null),[bShareStats],);
+  const bShareCirculatingSupply = useMemo(() => (bShareStats ? String(bShareStats.circulatingSupply) : null),[bShareStats],);
+  const bShareTotalSupply = useMemo(() => (bShareStats ? String(bShareStats.totalSupply) : null), [bShareStats]);
+
+  const tBondPriceInDollars = useMemo(() => (tBondStats ? Number(tBondStats.priceInDollars).toFixed(2) : null),[tBondStats],);
+  const tBondPriceInBNB = useMemo(() => (tBondStats ? Number(tBondStats.tokenInFtm).toFixed(4) : null), [tBondStats]);
+  const tBondCirculatingSupply = useMemo(() => (tBondStats ? String(tBondStats.circulatingSupply) : null),[tBondStats],);
+  const tBondTotalSupply = useMemo(() => (tBondStats ? String(tBondStats.totalSupply) : null), [tBondStats]);
+
+  
+  const rows = [
+    createData({ name: '$BOMB', icon: '' }, bombCirculatingSupply, bombTotalSupply, bombPriceInBNB, 4.0),
+    createData({ name: '$BSHARE', icon: '' }, bShareCirculatingSupply, bShareTotalSupply, bSharePriceInDollars, 4.3),
+    createData({ name: '$BBOND', icon: '' }, tBondCirculatingSupply, tBondTotalSupply, tBondPriceInDollars, 6.0),
+  ];
+  
   return (
     <div className="page-container">
       <Helmet>
@@ -51,7 +98,7 @@ const Dashboard = () => {
       <BackgroundImage />
 
       <Box mt={5} style={{ minHeight: '100vh' }}>
-        <Grid container justify="center" direction="column" alignItems="center">
+        <Grid container justifyContent="center" direction="column" alignItems="center">
 
           {/* CARD 1 */}
 
@@ -219,20 +266,25 @@ const Dashboard = () => {
 
               <Box style={{ marginRight: '5%' }}>
                 <Typography style={{ fontSize: '18px' }}>Current Epoch</Typography>
-                <Typography style={{ fontSize: '35px' }}>258</Typography>
+                <Typography style={{ fontSize: '34px' }}>{Number(currentEpoch)}</Typography>
                 <hr></hr>
-                <Typography style={{ fontSize: '35px' }}>03:38:36</Typography>
+                {/* <Typography style={{ fontSize: '35px' }}>03:38:36</Typography> */}
+                <div style={{fontSize: '34px'}}>
+                <ProgressCountdown style={{marginTop: '0px', fontSize: '34px'}} base={moment().toDate()} hideBar={true} deadline={to} description="Next Epoch" />
+                </div>
                 <Typography style={{ fontSize: '18px' }}>Next Epoch in</Typography>
                 <hr></hr>
                 <Typography style={{ fontSize: '14px' }}>
                   Live TWAP: <span style={{ color: '#00E8A2' }}>1.17</span>{' '}
                 </Typography>
                 <Typography style={{ fontSize: '14px' }}>
-                  TVL: <span style={{ color: '#00E8A2' }}>$5,002,412</span>
+                  <span style={{ color: '#00E8A2' }}>TVL:</span>
+                  <CountUp style={{ fontSize: '14px' }} end={TVL} separator="," prefix="$" />
                 </Typography>
                 <Typography style={{ fontSize: '14px' }}>
-                  Last Epoch TWAP: <span style={{ color: '#00E8A2' }}>1.22</span>
+                  Last Epoch TWAP: <span style={{ color: '#00E8A2' }}>{bondScale || '-'}</span>
                 </Typography>
+                
               </Box>
             </CardContent>
           </Card>
@@ -317,12 +369,14 @@ const Dashboard = () => {
                     <div>
                       <div style={{ display: 'flex' }}>
                         <p style={{ fontSize: '14px', marginLeft: '20px' }}>Stake BSHARE and earn BOMB every epoch</p>
-                        <p style={{ fontSize: '14px', marginLeft: 'auto', marginRight: '20px' }}>TVL: $1,008,430</p>
+                        <p style={{ fontSize: '14px', marginLeft: 'auto', marginRight: '20px' }}>TVL: </p>
+                        <CountUp style={{ fontSize: '14px', marginTop: '14px', marginRight: '20px'}} end={TVL} separator="," prefix="$" />
                       </div>
                       <hr></hr>
                       <p style={{ display: 'flex', justifyContent: 'right', marginRight: '20px' }}>
-                        Total Staked: 7232
+                        Total Staked: {getDisplayBalance(totalStaked)}
                       </p>
+                      {/* <Typography>{getDisplayBalance(totalStaked)}</Typography> */}
                     </div>
                     <div style={{ display: 'flex' }}>
                       <div style={{ width: '25%' }}>
@@ -340,7 +394,7 @@ const Dashboard = () => {
                             }}
                             src={bshares}
                           />
-                          6.0000
+                          {getDisplayBalance(stakedBalance)}
                         </p>
                         <p>~$1171.62</p>
                       </div>
@@ -537,7 +591,10 @@ const Dashboard = () => {
                         <p style={{ fontSize: '14px', marginLeft: '20px' }}>
                           Stake your LP tokens in our farms to start earning $BSHARE
                         </p>
-                        <p style={{ fontSize: '14px', marginLeft: 'auto', marginRight: '20px' }}>TVL: $1,008,430</p>
+
+                        <p style={{ fontSize: '14px', marginLeft: 'auto', marginRight: '20px' }}>TVL: </p>
+                        <CountUp style={{ fontSize: '14px', marginTop: '14px', marginRight: '20px' }} end={TVL} separator="," prefix="$" />
+                      
                       </div>
                       <hr></hr>
                     </div>
@@ -586,7 +643,7 @@ const Dashboard = () => {
                               }}
                               src={bshares}
                             />
-                            6.0000
+                            {getDisplayBalance(stakedBalance)}
                           </p>
                           <p>~$1171.62</p>
                         </div>
@@ -760,7 +817,7 @@ const Dashboard = () => {
                               }}
                               src={bshares}
                             />
-                            6.0000
+                            {getDisplayBalance(stakedBalance)}
                           </p>
                           <p>~$1171.62</p>
                         </div>
@@ -978,7 +1035,7 @@ const Dashboard = () => {
               <div style={{ display: 'flex', marginLeft: '20px', marginRight: '10pxs' }}>
                 <div style={{ width: '25%' }}>
                   <p>Current Price: (Bomb)^2</p>
-                  <p>BBond = 6.2872 BTCB</p>
+                  <p>BBond = {Number(bondStat?.tokenInFtm).toFixed(4) || '-'} BTCB</p>
                 </div>
 
                 <div style={{ width: '20%' }}>
@@ -991,7 +1048,7 @@ const Dashboard = () => {
                       }}
                       src={bshares}
                     />
-                    456
+                    {getDisplayBalance(bondBalance)}
                   </p>
                 </div>
                 <div style={{ marginLeft: 'auto', marginRight: '10px' }}>
@@ -1045,6 +1102,7 @@ const Dashboard = () => {
               </div>
             </CardContent>
           </Card>
+          
         </Grid>
       </Box>
     </div>
