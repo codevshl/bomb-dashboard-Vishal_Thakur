@@ -1,11 +1,10 @@
-import React, { useMemo} from 'react';
-
+import React, { useMemo, useState} from 'react';
 import { Helmet } from 'react-helmet';
 import { createGlobalStyle } from 'styled-components';
 import Page from '../../components/Page';
 import { makeStyles } from '@material-ui/core/styles';
 import HomeImage from '../../assets/img/background.jpg';
-import { Box, Card, CardContent, Button, Typography, Grid } from '@material-ui/core';
+import { Box, Card, CardContent, CardActions, Button, Typography, Grid } from '@material-ui/core';
 import ProgressCountdown from '../Boardroom/components/ProgressCountdown';
 import moment from 'moment';
 import { Alert } from '@material-ui/lab';
@@ -27,6 +26,8 @@ import useCurrentEpoch from '../../hooks/useCurrentEpoch';
 import useTreasuryAllocationTimes from '../../hooks/useTreasuryAllocationTimes';
 import useBondStats from '../../hooks/useBondStats';
 import useTotalValueLocked from '../../hooks/useTotalValueLocked';
+import useBoardroomTVL from '../../hooks/useBoardroomTVL';
+import useBombTVL from '../../hooks/useBombTVL';
 import CountUp from 'react-countup';
 import { getDisplayBalance } from '../../utils/formatBalance';
 import useTotalStakedOnBoardroom from '../../hooks/useTotalStakedOnBoardroom';
@@ -34,11 +35,21 @@ import useTokenBalance from '../../hooks/useTokenBalance';
 import useBombFinance from '../../hooks/useBombFinance';
 import useCashPriceInLastTWAP from '../../hooks/useCashPriceInLastTWAP';
 import useStakedBalanceOnBoardroom from '../../hooks/useStakedBalanceOnBoardroom';
+import useShareStats from '../../hooks/usebShareStats';
+import Value from '../../components/Value/index';
+import DepositModal from '../Stake/components/DepositModal';
+import WithdrawModal from '../Stake/components/WithdrawModal';
+import useStakeToBoardroom from '../../hooks/useStakeToBoardroom';
+import useWithdrawFromBoardroom from '../../hooks/useWithdrawFromBoardroom';
+import useModal from '../../hooks/useModal';
+import useHarvestFromBoardroom from '../../hooks/useHarvestFromBoardroom';
+import useEarningsOnBoardroom from '../../hooks/useEarningsOnBoardroom';
 import useBombStats from '../../hooks/useBombStats';
-import usebShareStats from '../../hooks/usebShareStats';
+import useClaimRewardCheck from '../../hooks/boardroom/useClaimRewardCheck';
+import { Link } from 'react-router-dom';
+import UnlockWallet from '../../components/UnlockWallet';
+import { useWallet } from 'use-wallet';
 
-
-  
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
 } 
@@ -46,7 +57,7 @@ function createData(name, calories, fat, carbs, protein) {
 
 
 
-const Dashboard = () => {
+const Dashboard = ({ bank }) => {
   const BackgroundImage = createGlobalStyle`
   body {
     background: url(${blurs}),url(${HomeImage});
@@ -54,21 +65,23 @@ const Dashboard = () => {
     background-color: #171923;
   }`;
 
+  const { account } = useWallet();
   const currentEpoch = useCurrentEpoch();
   const TITLE = 'bomb.money | Bomb Finance Summary';
   const bondStat = useBondStats();
   const { to } = useTreasuryAllocationTimes();
   const TVL = useTotalValueLocked();
+  const boardroomTVL = useBoardroomTVL();
+  const bombTVL = useBombTVL();
   const totalStaked = useTotalStakedOnBoardroom();
   const bombFinance = useBombFinance();
   const bondBalance = useTokenBalance(bombFinance?.BBOND);
   const cashPrice = useCashPriceInLastTWAP();
   const bondScale = (Number(cashPrice) / 100000000000000).toFixed(4); 
   const stakedBalance = useStakedBalanceOnBoardroom();
-  const bombStats = useBombStats();
-  const bShareStats = usebShareStats();
+  const bShareStats = useShareStats();
   const tBondStats = useBondStats();
-
+  const bombStats = useBombStats();
   const bombPriceInBNB = useMemo(() => (bombStats ? Number(bombStats.tokenInFtm).toFixed(4) : null), [bombStats]);
   const bombCirculatingSupply = useMemo(() => (bombStats ? String(bombStats.circulatingSupply) : null), [bombStats]);
   const bombTotalSupply = useMemo(() => (bombStats ? String(bombStats.totalSupply) : null), [bombStats]);
@@ -83,12 +96,75 @@ const Dashboard = () => {
   const tBondCirculatingSupply = useMemo(() => (tBondStats ? String(tBondStats.circulatingSupply) : null),[tBondStats],);
   const tBondTotalSupply = useMemo(() => (tBondStats ? String(tBondStats.totalSupply) : null), [tBondStats]);
 
+ 
+
+  const [val] = useState('');
+  const { onStake } = useStakeToBoardroom();
+  const { onWithdraw } = useWithdrawFromBoardroom();
   
   const rows = [
     createData({ name: '$BOMB', icon: '' }, bombCirculatingSupply, bombTotalSupply, bombPriceInBNB, 4.0),
     createData({ name: '$BSHARE', icon: '' }, bShareCirculatingSupply, bShareTotalSupply, bSharePriceInDollars, 4.3),
     createData({ name: '$BBOND', icon: '' }, tBondCirculatingSupply, tBondTotalSupply, tBondPriceInDollars, 6.0),
   ];
+
+  
+  const {onReward} = useHarvestFromBoardroom();
+  const earnings = useEarningsOnBoardroom();
+  const canClaimReward = useClaimRewardCheck();
+  const tokenBalance = useTokenBalance(bombFinance.BOMB);
+
+  const tokenPriceInDollars = useMemo(
+    () => (bombStats ? Number(bombStats.priceInDollars).toFixed(2) : null),
+    [bombStats],
+  );
+
+  const earnedInDollars = (Number(tokenPriceInDollars) * Number(getDisplayBalance(earnings))).toFixed(2);
+
+  const [onPresentDeposit, onDismissDeposit] = useModal(
+    <DepositModal
+      max={tokenBalance}
+      onConfirm={(value) => {
+        onStake(value);
+        onDismissDeposit();
+      }}
+      tokenName={'BShare'}
+    />,
+  );
+
+  const [onPresentWithdraw, onDismissWithdraw] = useModal(
+    <WithdrawModal
+      max={stakedBalance}
+      onConfirm={(value) => {
+        onWithdraw(value);
+        onDismissWithdraw();
+      }}
+      tokenName={'BShare'}
+    />,
+  );
+
+  const [onPresentDepositBomb, onDismissDepositBomb] = useModal(
+    <DepositModal
+      max={tokenBalance}
+      onConfirm={(value) => {
+        onStake(value);
+        onDismissDeposit();
+      }}
+      tokenName={'LP Tokens'}
+    />,
+  );
+
+  const [onPresentWithdrawBomb, onDismissWithdrawBomb] = useModal(
+    <WithdrawModal
+      max={stakedBalance}
+      onConfirm={(value) => {
+        onWithdraw(value);
+        onDismissWithdraw();
+      }}
+      tokenName={'LP Tokens'}
+    />,
+  );
+
   
   return (
     <div className="page-container">
@@ -370,7 +446,7 @@ const Dashboard = () => {
                       <div style={{ display: 'flex' }}>
                         <p style={{ fontSize: '14px', marginLeft: '20px' }}>Stake BSHARE and earn BOMB every epoch</p>
                         <p style={{ fontSize: '14px', marginLeft: 'auto', marginRight: '20px' }}>TVL: </p>
-                        <CountUp style={{ fontSize: '14px', marginTop: '14px', marginRight: '20px'}} end={TVL} separator="," prefix="$" />
+                        <CountUp style={{ fontSize: '14px', marginTop: '14px', marginRight: '20px'}} end={boardroomTVL} separator="," prefix="$" />
                       </div>
                       <hr></hr>
                       <p style={{ display: 'flex', justifyContent: 'right', marginRight: '20px' }}>
@@ -410,7 +486,7 @@ const Dashboard = () => {
                             }}
                             src={bomb}
                           />
-                          1660.4413
+                          {earnedInDollars}
                         </p>
 
                         <p>~$298.88</p>
@@ -430,6 +506,8 @@ const Dashboard = () => {
                               padding: '4px 10px 4px 15px',
                               marginTop: '20px'
                             }}
+
+                            onClick = {onPresentDeposit}
                           >
                             <span
                               style={{
@@ -462,6 +540,8 @@ const Dashboard = () => {
                               marginTop: '20px',
                               marginLeft: '20px',
                             }}
+
+                            onClick={onPresentWithdraw}
                           >
                             <span
                               style={{
@@ -483,7 +563,7 @@ const Dashboard = () => {
                             />
                           </div>
                         </div>
-                        <div
+                        <button
                           style={{
                             width: '70%',
                             height: '23px',
@@ -494,7 +574,13 @@ const Dashboard = () => {
                             alignItems: 'center',
                             padding: '4px 10px 4px 15px',
                             marginTop: '10px',
+                
                           }}
+
+                          onClick={onReward}
+                          className={earnings.eq(0) || !canClaimReward ? 'shinyButtonDisabled' : 'shinyButton'}
+                          disabled={earnings.eq(0) || !canClaimReward}
+
                         >
                           <span
                             style={{
@@ -514,7 +600,7 @@ const Dashboard = () => {
                             }}
                             src={iconArrowDownCir}
                           />
-                        </div>
+                        </button>
                       </div>
                     </div>
                   </Box>
@@ -591,12 +677,8 @@ const Dashboard = () => {
                         <p style={{ fontSize: '14px', marginLeft: '20px' }}>
                           Stake your LP tokens in our farms to start earning $BSHARE
                         </p>
-
-                        <p style={{ fontSize: '14px', marginLeft: 'auto', marginRight: '20px' }}>TVL: </p>
-                        <CountUp style={{ fontSize: '14px', marginTop: '14px', marginRight: '20px' }} end={TVL} separator="," prefix="$" />
                       
                       </div>
-                      <hr></hr>
                     </div>
 
                     {/* BOMB BTCB */}
@@ -624,6 +706,9 @@ const Dashboard = () => {
                         >
                           <p style={{ fontSize: '12px', padding: '18px' }}>Recommended</p>
                         </div>
+                        <p style={{ fontSize: '14px', marginTop:'30px', marginLeft: 'auto', marginRight: '20px' }}>TVL: </p>
+                        <CountUp style={{ fontSize: '14px', marginTop:'30px', marginRight: '20px' }} end={bombTVL} separator="," prefix="$" />
+
                       </div>
                       <hr></hr>
 
@@ -666,6 +751,9 @@ const Dashboard = () => {
                         </div>
 
                         <div style={{ width: '35%', marginTop: '5%' }}>
+                        {/* <Button className="shinyButtonSecondary" component={Link} to={`/farm/${bank.contract}`}>
+                            meowmeow
+                        </Button> */}
                           <div style={{ display: 'flex', justifyContent: 'center' }}>
                           <div
                             style={{
@@ -681,6 +769,7 @@ const Dashboard = () => {
                               marginLeft: 'auto'
 
                             }}
+                            onClick = {onPresentDepositBomb}
                           >
                             <span
                               style={{
@@ -701,6 +790,7 @@ const Dashboard = () => {
                             />
                          </div>
                          <div
+                         
                             style={{
                               width: '20%',
                               height: '18px',
@@ -714,6 +804,8 @@ const Dashboard = () => {
                               marginLeft: 'auto'
 
                             }}
+
+                            onClick={onPresentWithdrawBomb}
                           >
                             <span
                               style={{
@@ -797,7 +889,13 @@ const Dashboard = () => {
                           }}
                         >
                           <p style={{ fontSize: '12px', padding: '18px' }}>Recommended</p>
+
+                          
                         </div>
+
+                        <p style={{ fontSize: '14px', marginTop:'30px', marginLeft: 'auto', marginRight: '20px' }}>TVL: </p>
+                        <CountUp style={{ fontSize: '14px', marginTop:'30px', marginRight: '20px' }} end={bombTVL} separator="," prefix="$" />
+
                       </div>
                       <hr></hr>
 
@@ -855,6 +953,8 @@ const Dashboard = () => {
                               marginLeft: 'auto'
 
                             }}
+
+                            onClick = {onPresentDepositBomb}
                           >
                             <span
                               style={{
@@ -888,6 +988,8 @@ const Dashboard = () => {
                               marginLeft: 'auto'
 
                             }}
+                            onClick={onPresentWithdrawBomb}
+
                           >
                             <span
                               style={{
@@ -998,6 +1100,8 @@ const Dashboard = () => {
                         marginTop: '20px',
                         marginLeft: '20px',
                       }}
+
+                      
                     >
                       <span
                         style={{
@@ -1101,6 +1205,18 @@ const Dashboard = () => {
                 </div>
               </div>
             </CardContent>
+          </Card>
+          
+          <Card>
+            <CardActions style={{ justifyContent: 'flex-end' }}>
+            {!!account ? (
+                <Button className="shinyButtonSecondary" component={Link} to={`/farm/${bank.contract}`}>
+                    meowmeow
+                </Button>
+            ) : (
+                <UnlockWallet />
+            )}
+          </CardActions>
           </Card>
           
         </Grid>

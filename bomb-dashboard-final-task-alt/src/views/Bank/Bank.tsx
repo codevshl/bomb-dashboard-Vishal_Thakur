@@ -143,7 +143,7 @@ const LPTokenHelpText: React.FC<{bank: BankEntity}> = ({bank}) => {
   const bombFinance = useBombFinance();
   const bombAddr = bombFinance.BOMB.address;
   const bshareAddr = bombFinance.BSHARE.address;
-    const busmAddr = bombFinance.BUSM.address;
+  const busmAddr = bombFinance.BUSM.address;
   const busdAddr = bombFinance.BUSD.address;
 
   //const depositToken = bank.depositTokenName;
