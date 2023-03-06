@@ -1207,7 +1207,7 @@ const Dashboard = ({ bank }) => {
             </CardContent>
           </Card>
           
-          <Card>
+          {/* <Card>
             <CardActions style={{ justifyContent: 'flex-end' }}>
             {!!account ? (
                 <Button className="shinyButtonSecondary" component={Link} to={`/farm/${bank.contract}`}>
@@ -1217,7 +1217,7 @@ const Dashboard = ({ bank }) => {
                 <UnlockWallet />
             )}
           </CardActions>
-          </Card>
+          </Card> */}
           
         </Grid>
       </Box>
