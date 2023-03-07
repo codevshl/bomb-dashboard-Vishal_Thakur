@@ -1,6 +1,9 @@
 {
   "compilerOptions": {
     "target": "es5",
+    "types": [
+      "@types/babel__core"
+    ],
     "lib": [
       "dom",
       "dom.iterable",
